@@ -19,7 +19,7 @@ date > /etc/box_build_time
 echo -e "`date` \n\n**** \n**** apt update:\n****\n"
 apt-get --force-yes -y update
 apt-get --force-yes -y dist-upgrade
-
+apt-get --force-yes -y update
 echo -e "`date` \n\n**** \n**** Installing base packages:\n****\n"
 apt-get --force-yes -y install build-essential make wget curl runit zlib1g-dev libssl-dev openssl libcurl4-openssl-dev libxml2-dev libxslt-dev libyaml-dev libreadline6 libreadline6-dev
 apt-get clean
