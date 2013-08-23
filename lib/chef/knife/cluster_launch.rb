@@ -111,8 +111,9 @@ class Chef
         # Try SSH
         unless config[:dry_run]
           Ironfan.step(computer.name, 'trying ssh', :white)
-          # FIXME: This is EC2-specific, abstract it
-          address = computer.machine.vpc_id.nil? ? computer.machine.public_hostname : computer.machine.public_ip_address
+          # FIXME: This is EC2-specific, abstract it.
+          # Instances in an amazon vpc may have no public hostname or public ip address, in this case pick the private ip address
+          address = computer.machine.vpc_id.nil? ? computer.machine.public_hostname : computer.machine.public_ip_address.nil? ? computer.machine.private_ip_address : computer.machine.public_ip_address
           nil until tcp_test_ssh(address){ sleep @initial_sleep_delay ||= 10  }
         end
         

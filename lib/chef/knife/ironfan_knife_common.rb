@@ -132,7 +132,9 @@ module Ironfan
 
     def bootstrapper(computer)
       server   = computer.server
-      hostname = computer.dns_name
+      # FIXME: This is EC2-specific, abstract it.
+      # Amazon ec2 instances inside a vpc may have no (public) dns name, fall back to the private ip address instead.
+      hostname = computer.dns_name.nil? ? computer.machine.private_ip_address : computer.dns_name
       #
       bootstrap = Chef::Knife::Bootstrap.new
       bootstrap.config.merge!(config)
